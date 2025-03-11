@@ -1,0 +1,268 @@
+name: call_for_service_semantics
+tables:
+  - name: CALLS_FOR_SERVICE
+    base_table:
+      database: TOG_WORKSHOP
+      schema: POLICE
+      table: CALLS_FOR_SERVICE
+    dimensions:
+      - name: EVENTDATE
+        expr: EVENTDATE
+        data_type: DATE
+        description: Event date
+        synonyms:
+          - Call date
+      - name: EVENTTYPE
+        expr: EVENTTYPE
+        data_type: VARCHAR(16777216)
+        description: ''
+        synonyms:
+          - Call type
+      - name: STREETDIRECTION
+        expr: STREETDIRECTION
+        data_type: VARCHAR(16777216)
+        description: Direction of the street where the call for service occurred.
+        sample_values:
+          - S
+          - 'N'
+          - W
+        synonyms:
+          - direction
+          - cardinal_direction
+          - street_cardinal
+          - street_orientation
+          - street_side
+          - street_prefix
+      - name: STREETNAME
+        expr: STREETNAME
+        data_type: VARCHAR(16777216)
+        description: The name of the street where the service call was made.
+        sample_values:
+          - MARKET
+          - WINTER
+          - SIERRA
+        synonyms:
+          - street
+          - road
+          - avenue
+          - street_name
+          - street_title
+          - roadway
+          - street_identifier
+          - street_label
+      - name: STREETSUFFIX
+        expr: STREETSUFFIX
+        data_type: VARCHAR(16777216)
+        description: The suffix of the street name where the call for service occurred, such as "Road" or "Avenue".
+        sample_values:
+          - RD
+          - AVE
+        synonyms:
+          - street_type
+          - street_designation
+          - street_extension
+          - street_postfix
+          - street_abbreviation
+          - street_suffix_type
+      - name: ADDRESSFULL
+        expr: ADDRESSFULL
+        data_type: VARCHAR(16777216)
+        description: The full address of the location where the call for service was made.
+        sample_values:
+          - 3800 BLOCK OF S WINTER LN
+          - 0 BLOCK OF S HIGLEY RD
+          - 0 BLOCK OF W VAUGHN AVE
+        synonyms:
+          - full_address
+          - complete_address
+          - street_address
+          - physical_address
+          - mailing_address
+          - location_address
+      - name: ADDRESSCITY
+        expr: ADDRESSCITY
+        data_type: VARCHAR(16777216)
+        description: The city or county where the service call was made.
+        sample_values:
+          - GILBERT
+          - MARICOPA COUNTY
+          - MESA
+        synonyms:
+          - city
+          - municipality
+          - town
+          - urban_area
+          - metropolitan_area
+          - city_name
+          - city_location
+          - urban_center
+      - name: ADDRESSSTATE
+        expr: ADDRESSSTATE
+        data_type: VARCHAR(16777216)
+        description: The state where the service call originated.
+        sample_values:
+          - AZ
+        synonyms:
+          - state
+          - province
+          - region
+          - territory
+          - geographic_area
+          - location_state
+          - state_abbreviation
+          - state_code
+      - name: CROSSSTREET1
+        expr: CROSSSTREET1
+        data_type: VARCHAR(16777216)
+        description: The first cross street name associated with the location of the service call.
+        sample_values:
+          - E GERMANN RD
+          - N ST PAUL DR
+        synonyms:
+          - intersection_street1
+          - adjacent_street1
+          - intersecting_street1
+          - neighboring_street1
+          - adjacent_road1
+          - nearby_street1
+          - crossing_street1
+          - intersecting_road1
+      - name: CROSSSTREET2
+        expr: CROSSSTREET2
+        data_type: VARCHAR(16777216)
+        description: Tertiary street name or intersection for the location of the service call.
+        sample_values:
+          - N COOPER RD
+          - S QUAIL LN
+        synonyms:
+          - intersection_street2
+          - secondary_cross_street
+          - cross_street_two
+          - intersecting_street2
+          - second_cross_street
+    facts:
+      - name: CALENDARYEAR
+        expr: CALENDARYEAR
+        data_type: NUMBER(38,0)
+        description: The calendar year in which the call for service was made.
+        sample_values:
+          - '2023'
+          - '2024'
+          - '2022'
+        synonyms:
+          - calendar_year
+          - year
+          - annual_year
+          - fiscal_calendar_year
+          - yearly_period
+          - calendar_period
+          - annual_period
+      - name: FISCALYEAR
+        expr: FISCALYEAR
+        data_type: NUMBER(38,0)
+        description: The fiscal year in which the call for service was made.
+        sample_values:
+          - '2022'
+          - '0'
+          - '2018'
+        synonyms:
+          - financial_year
+          - budget_year
+          - tax_year
+          - accounting_year
+          - fiscal_period
+      - name: HUNDREDBLOCK
+        expr: HUNDREDBLOCK
+        data_type: NUMBER(38,0)
+        description: The number of calls for service that originated from a specific hundred block location.
+        sample_values:
+          - '3800'
+          - '1900'
+          - '8400'
+        synonyms:
+          - block_number
+          - hundred_block_number
+          - block_id
+          - neighborhood_block
+          - geographic_block
+      - name: LONGITUDE
+        expr: LONGITUDE
+        data_type: NUMBER(38,8)
+        description: The longitude coordinate of the location where the service call was made, representing the east-west position on the Earth's surface, measured in decimal degrees.
+        sample_values:
+          - '-111.78967576'
+          - '-111.76230221'
+          - '-111.78968555'
+        synonyms:
+          - east_west_coordinate
+          - easting
+          - geographic_longitude
+          - longitudinal_coordinate
+          - x_coordinate
+      - name: LATITUDE
+        expr: LATITUDE
+        data_type: NUMBER(38,8)
+        description: The latitude coordinate of the location where the call for service was made.
+        sample_values:
+          - '33.35486786'
+          - '33.36485577'
+        synonyms:
+          - latitude_coordinate
+          - geographic_latitude
+          - lat
+          - y_coordinate
+          - north_south_position
+      - name: RESPONSETIME
+        expr: RESPONSETIME
+        data_type: NUMBER(38,0)
+        description: The time it takes for a service technician to arrive on site after a service call is received, measured in minutes.
+        sample_values:
+          - '258'
+          - '897'
+          - '299'
+        synonyms:
+          - response_time
+          - reaction_time
+          - response_duration
+          - reaction_duration
+          - time_to_respond
+          - elapsed_response_time
+          - response_latency
+verified_queries:
+  - name: Call types by year
+    question: How have call types changed over calendar years?
+    use_as_onboarding_question: true
+    sql: SELECT DISTINCT EVENTTYPE, CALENDARYEAR, COUNT(*) FROM CALLS_FOR_SERVICE WHERE CALENDARYEAR <> 0 GROUP BY 1, 2 ORDER BY 1, 2 DESC
+    verified_by: Bryan Mutell
+    verified_at: 1741627587
+  - name: Events per year
+    question: How many events happen per year?
+    use_as_onboarding_question: true
+    sql: SELECT calendaryear, COUNT(*) AS call_count FROM calls_for_service GROUP BY calendaryear ORDER BY 1 DESC
+    verified_by: Bryan Mutell
+    verified_at: 1741627580
+  - name: Events by month in last 5 years
+    question: What months historically have had the most calls?
+    use_as_onboarding_question: false
+    sql: SELECT MONTH(TO_TIMESTAMP(eventdate, 'yyyy/mm/DD hh24:mi:ss+TZH')) AS month, COUNT(*) AS call_count FROM calls_for_service WHERE calendaryear <> 2025 GROUP BY month ORDER BY call_count DESC
+    verified_by: Bryan Mutell
+    verified_at: 1741627455
+  - name: Calls by hour of day
+    question: How many calls have occurred by hour of the day?
+    use_as_onboarding_question: true
+    sql: SELECT HOUR(TO_TIMESTAMP(eventdate, 'yyyy/mm/DD hh24:mi:ss+TZH')) AS hour, COUNT(*) FROM calls_for_service GROUP BY 1 ORDER BY 1
+    verified_by: Bryan Mutell
+    verified_at: 1741627567
+  - name: Common call types
+    question: What are the five most common call types?
+    use_as_onboarding_question: true
+    sql: SELECT eventtype, COUNT(*) AS call_count, RANK() OVER (ORDER BY COUNT(*) DESC) AS rank FROM calls_for_service GROUP BY eventtype QUALIFY rank <= 5
+    verified_by: Bryan Mutell
+    verified_at: 1741627665
+  - name: Welfare checks in current year
+    question: How many welfare checks have happened so far this year?
+    use_as_onboarding_question: true
+    sql: SELECT eventtype, COUNT(*) AS call_count, YEAR(TO_TIMESTAMP(eventdate, 'yyyy/mm/DD hh24:mi:ss+TZH')) AS YEAR FROM calls_for_service WHERE eventtype = 'WELFARE CHECK' AND YEAR = 2025 GROUP BY eventtype, year
+    verified_by: Bryan Mutell
+    verified_at: 1741629240
+custom_instructions: The current year is 2025. The most recent data is from 2025. When date questions are asked relative to the current date, make sure to use the max value of eventdate to know the relative date. For example, "this year" should be equal to the year of max(eventdate).
