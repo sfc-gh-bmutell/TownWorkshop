@@ -60,7 +60,7 @@ create schema fireworks;
 
 
 /**************************************************
-******************** Corte Analyst Setup
+******************** Cortex Analyst Setup
 **************************************************/
 -- Download CSV from https://data.gilbertaz.gov/datasets/2dcb4c20c9a444f2a5d3dca180b651c9/explore
 -- compress file
